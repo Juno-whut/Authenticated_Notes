@@ -11,6 +11,7 @@ class FirestoreService {
 
   // Create: add new note
   Future<void> addNote(String note) async {
+    if (note.isEmpty) return;
     final data = {
     'note': note,
     'timestap': Timestamp.now()
@@ -28,13 +29,14 @@ class FirestoreService {
 
   // Update: update notes in db given doc id
   Future<void> updateNote(String docID, String newNote) async {
+    if (newNote.isEmpty) return;
     final data = {
       'note': newNote,
       'timestap': Timestamp.now()
     };
     await notes.doc(docID).update(data);
   }
-  
+
   // Delete: delete notes from db given doc id
   Future<void> deleteNote(String docID) {
     return notes.doc(docID).delete();
